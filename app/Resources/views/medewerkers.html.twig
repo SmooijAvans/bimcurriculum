@@ -1,0 +1,20 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div class="bs-callout bs-callout-info">Beheer hier uw medewerkers. Deze hebben toegang tot het systeem na toevoeging.</div>
+<div>
+{% if is_granted('ROLE_CUCO') %}
+<a class="btn btn-success" href="{{path('admin_new_medewerker')}}">{% trans %}btn.nieuwe_medewerker{% endtrans %}</a>
+{% endif %}
+</div>
+{% for medewerker in medewerkers  %}
+	<div class="pushup">
+		<span>{{ medewerker.volledigeNaam }}</span>
+		<span>({{ medewerker.username }})</span>
+		{% if is_granted('ROLE_CUCO') %}
+			<span><a href="{{path('admin_edit_medewerker', {'id':medewerker.id})}}">aanpassen</a></span>
+			<span><a href="{{ path("admin_edit_medewerker_password", {"id":medewerker.id}) }}">wachtwoord instellen</a></span>
+			<span><a href="{{path('admin_delete_confirm_medewerker', {'id':medewerker.id})}}">verwijderen</a></span>
+		{% endif %}
+	</div>
+{% endfor %}
+{% endblock %}

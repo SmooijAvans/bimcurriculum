@@ -1,0 +1,15 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+{% for course in courses %}
+<div class="pushup">
+	<span>{{ course.naam }}</span>
+	<ul>
+		{% for toets in course.toetsen  %}
+			<li>{{toets.naam}} ({{toets.course.naam}}) <a href="{{path('toets_modulewijzer', {'toetsid': toets.id})}}">Download modulehandleiding</a> <a href="{{path('toets_toetsoverzicht', {'toetsid': toets.id})}}">Download toetsoverzicht</a> <a href="{{path('toets_toetsmatrijs', {'toetsid': toets.id})}}">Download toetsmatrijs</a></li>
+		{% endfor %}
+	</ul>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

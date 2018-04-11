@@ -1,0 +1,23 @@
+<a href="javascript:history.back()">Terug</a>
+{% for toets in toetsen %}
+    <ul>
+        <li>{{ toets.naam }} ({{ toets.soort }})</li>
+                <li>Osiris code: {{ toets.code }}</li>
+                <li>EC/studiepunten: {{ toets.ec }}</li>
+                <li>Gemiddelde studietijd: {{ 28 * toets.ec }} uur</li>
+
+    {% if toets.leerdoelen is not empty %}
+        <li>Criteria:</li><ul>
+        {% for leerdoel in toets.leerdoelen %}
+            <li>{{ leerdoel.beschrijving }}</li>
+              {% if leerdoel.leeruitkomsten is not empty %}
+                <ul>
+                {% for uitkomst in leerdoel.leeruitkomsten %}
+                  <li>{{uitkomst.beschrijving}}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+        {% endfor %}</ul>
+    {% endif %}
+    </ul>
+{% endfor %}

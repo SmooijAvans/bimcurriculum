@@ -1,0 +1,19 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div class="bs-callout bs-callout-info">Domeinen of lijnen worden gehanteerd om toetsen in onder te verdelen.</div>
+<div>
+{% if is_granted('ROLE_CUCO') %}
+<a class="btn btn-success" href="{{path('admin_new_domein')}}">Nieuw domein</a>
+{% endif %}
+</div>
+{% for domein in domeinen  %}
+<div class="pushup">
+	<span>{{ domein.naam }}</span>
+	{% if is_granted('ROLE_CUCO') %}
+		<span><a href="{{path('admin_edit_domein', {'id':domein.id})}}">aanpassen</a></span>
+		<span><a href="{{path('admin_delete_confirm_domein', {'id':domein.id})}}">verwijderen</a></span>
+	{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

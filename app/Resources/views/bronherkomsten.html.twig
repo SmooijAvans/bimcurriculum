@@ -1,0 +1,21 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+	<div class="bs-callout bs-callout-info">Hier staan de basisdocumenten waarop het curriculum gebaseerd is.</div>
+<div>
+{% if is_granted('ROLE_CUCO') %}
+<a class="btn btn-success" href="{{path('admin_new_bronherkomst')}}">Nieuwe Body of Knowledge</a>
+{% endif %}
+</div>
+{% for bronherkomst in bronherkomsten  %}
+<div class="pushup">
+	<span>{{ bronherkomst.naam }}</span>
+	<span>{{ bronherkomst.url }}</span>
+	{% if is_granted('ROLE_CUCO') %}
+	<span><a href="{{path('admin_edit_bronherkomst', {'id': bronherkomst.id})}}">aanpassen</a></span>
+	<span><a href="{{path('admin_delete_confirm_bronherkomst', {'id': bronherkomst.id})}}">verwijderen</a></span>
+	{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

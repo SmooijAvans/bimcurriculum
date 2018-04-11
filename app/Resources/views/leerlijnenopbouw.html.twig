@@ -1,0 +1,15 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+{% for course in courses %}
+    {{ course.jaar }}
+    {{ course.periode }}
+    {{ course.naam }}
+    {% if course.toetsen is not empty %}
+        {% for toets in course.toetsen %}
+            {% if toets.leerlijn is not empty %}
+                {{ toets.leerlijn.naam }}
+            {%  endif %}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+{% endblock %}

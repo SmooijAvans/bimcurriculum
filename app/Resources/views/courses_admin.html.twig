@@ -1,0 +1,45 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+	<div class="bs-callout bs-callout-info">Sleep hier de leerdoelen bij een course of uit een course.</div>
+	<div class="info"></div>
+{% if course is not empty %}
+		<h2>Leerdoelen voor {{course.naam}}</h2>
+		<div class="col-lg-6 pull-right">
+			<h3>Alle leerdoelen</h3>
+			<div class="accordion">
+				{% for bron in bronnen  %}
+				<h3>{{bron.naam}}</h3>
+				<div>
+					<ul class="lds-buiten-course">
+					{% for leerdoel in bron.leerdoelen %}
+					{% if leerdoel.course is empty or leerdoel.course.id != course.id %}
+					<li class="pushup ld-item">
+						<div><strong>{{leerdoel.code}}</strong> {{leerdoel.beschrijving}} {% if leerdoel.bron is not empty %}({{leerdoel.bron}}){% endif %}</div>
+						{% if leerdoel.course is not empty %}
+							<div class="green">Course {{leerdoel.course.naam}} <a data-warning="true" data-ld="{{leerdoel.id}}" data-course="{{course.id}}" id="{{leerdoel.id}}-{{course.id}}" class="btn btn-danger koppelbtn-{{leerdoel.id}}" href="#">Koppelen</a></div>
+						{% endif %}
+						{% if leerdoel.course is empty %}
+							<div class="red">Nog niet gekoppeld aan een course <a  data-ld="{{leerdoel.id}}" data-course="{{course.id}}" id="{{leerdoel.id}}-{{course.id}}" class="btn btn-success koppelbtn-{{leerdoel.id}}" href="#">Koppelen</a></div>
+						{% endif %}
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<h3>Leerdoelen in course</h3>
+			<ul class="lds-binnen-course">
+			{% for leerdoel in leerdoelen  %}
+				<li class="pushup">
+					<strong>{{leerdoel.code}}</strong> {{leerdoel.beschrijving}} {% if leerdoel.bron is not empty %}(<span class="green">{{leerdoel.bron}}</span>){% endif %}
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+{% endif %}
+</div>
+{% endblock %}

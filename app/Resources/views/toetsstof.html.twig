@@ -1,0 +1,19 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+	<div class="bs-callout bs-callout-info">Let op: literatuur moet eerst in de algemene lijst toegevoegd worden om dubbelen te voorkomen. Hier kan enkel literatuur gekoppeld worden aan een toets; wilt u nieuwe literatuur toevoegen? Ga dan naar de algemene literatuurlijst.</div>
+<div><a class="btn btn-success" href="{{path('new_toetsstof', {'id': toetsid })}}">Nieuwe toetsstof</a></div>
+{% if toetsstof is not empty %}
+	<h1>Stof voor {{ toetsstof|first.toets.naam }}</h1>
+
+{% for stof in toetsstof  %}
+<div class="pushup">
+	<span>{{ stof.literatuur }} </span>
+	<span>{{ stof.stof }}</span>
+	<span><a class="" href="{{path('delete_confirm_toetsstof', {'toetsid' : stof.toets.id, 'literatuurid' : stof.literatuur.id })}}">verwijderen</a></span>
+</div>
+{% endfor %}
+</div>
+{% endif %}
+<div class="pushup"><a class="btn btn-primary" href="{{path('view_course_leerdoelen', {'courseid': courseid })}}">Terug naar course</a></div>
+{% endblock %}

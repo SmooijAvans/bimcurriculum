@@ -1,0 +1,59 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<h1>Versiehistorie toets {{toets.naam}}</h1>
+<div class="col-lg-6">
+	<h3>Huidige versie</h3>
+	<ul>
+	<li>Code: {{toets.code}}</li>
+	<li>Course: {% if toets.course is not empty %}{{toets.course.naam}}{% endif %}</li>
+	<li>Naam: {{toets.naam}}</li>
+	<li>Verantwoordelijke: {% if toets.verantwoordelijke is not empty %}{{toets.verantwoordelijke.volledigenaam}}{% endif %}</li>
+	<li>Reviewer: {% if toets.reviewer is not empty %}{{toets.reviewer.volledigenaam}}{% endif %}</li>
+	<li>Duur in minuten: {{toets.duurinminuten}}</li>
+	<li>Aantal ec: {{toets.ec}}</li>
+	<li>Soort: {% if toets.soort is not empty %}{{toets.soort.naam}}{% endif %}</li>
+	<li>Domein: {% if toets.domein is not empty %}{{toets.domein.naam}}{% endif %}</li>
+	<li>Duurzaamheidsaspect: {% if toets.duurzaamheidsaspect == 1 %}Ja{% else %}Nee{% endif %}</li>
+	<li>Veranderaspect: {% if toets.veranderaspect == 1 %}Ja{% else %}Nee{% endif %}</li>
+	<li>Onderzoeksaspect: {% if toets.onderzoeksaspect == 1 %}Ja{% else %}Nee{% endif %}</li>
+	<li>Internationaliseringsaspect: {% if toets.internationaliseringsaspect == 1 %}Ja{% else %}Nee{% endif %}</li>
+	<li>Taal: {{toets.taal}}</li>
+	<li>Resultaatschaal: {{toets.resultaatschaal}}</li>
+	<li>Weging: {{toets.weging}}</li>
+	<li>Minimale eis: {{toets.minimaleeis}}</li>
+	<li>Compensabel: {{toets.compensabel}}</li>
+	<li>Voorkennis: {{toets.voorkennis}}</li>
+	<li>Hulpmiddelen: {{toets.hulpmiddelen}}</li>
+	</ul>
+</div>
+<div class="col-lg-6">
+	<h3>Versies in het verleden</h3>
+{% for archieftoets in toets.archieftoetsen  %}
+	<div class="accordion">
+		<span class="h3">{{archieftoets.datumArchief|date('d-m-Y')}}{% if archieftoets.reden is not empty %} ({{archieftoets.reden}}){% endif %}</span>
+		<ul>
+		<li>Code: {{archieftoets.code}}</li>
+		<li>Course: {{archieftoets.courseText}}</li>
+		<li>Naam: {{archieftoets.naam}}</li>
+		<li>Verantwoordelijke: {{archieftoets.verantwoordelijkeText}}</li>
+		<li>Reviewer: {{archieftoets.reviewerText}}</li>
+		<li>Duur in minuten: {{archieftoets.duurinminuten}}</li>
+		<li>Aantal ec: {{archieftoets.ec}}</li>
+		<li>Soort: {{archieftoets.soortText}}</li>
+		<li>Domein: {{archieftoets.domeinText}}</li>
+		<li>Duurzaamheidsaspect: {% if archieftoets.duurzaamheidsaspect == 1 %}Ja{% else %}Nee{% endif %}</li>
+		<li>Veranderaspect: {% if archieftoets.veranderaspect == 1 %}Ja{% else %}Nee{% endif %}</li>
+		<li>Onderzoeksaspect: {% if archieftoets.onderzoeksaspect == 1 %}Ja{% else %}Nee{% endif %}</li>
+		<li>Internationaliseringsaspect: {% if archieftoets.internationaliseringsaspect == 1 %}Ja{% else %}Nee{% endif %}</li>
+		<li>Taal: {{archieftoets.taal}}</li>
+		<li>Resultaatschaal: {{archieftoets.resultaatschaal}}</li>
+		<li>Weging: {{archieftoets.weging}}</li>
+		<li>Minimale eis: {{archieftoets.minimaleeis}}</li>
+		<li>Compensabel: {{archieftoets.compensabel}}</li>
+		<li>Voorkennis: {{archieftoets.voorkennis}}</li>
+		<li>Hulpmiddelen: {{archieftoets.hulpmiddelen}}</li>
+		</ul>
+	</div>
+{% endfor %}
+</div>
+{% endblock %}

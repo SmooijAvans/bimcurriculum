@@ -1,0 +1,10 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+{% for course in courses %}
+    <div>
+        <span><a href="{{path('info_toetsen_in_course' , {'id': course.id})}}">{{ course.naam }}</a></span>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

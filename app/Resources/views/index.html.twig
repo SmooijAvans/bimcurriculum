@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <title>{% block title %}Curriculum BIM{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('./css/default.css') }}" />
+            <link rel="stylesheet" href="{{ asset('./css/bootstrap.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('./css/jquery-ui.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('./css/jquery-ui.structure.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('./css/jquery-ui.theme.min.css') }}" />
+        {% endblock %}
+        {% block scripts %}
+            <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+            <script src="{{ asset('js/uiactions.js') }}"></script>
+            <script>
+              var rest_base = "{{rest_base}}";
+            </script>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <br />
+        <div class="container-fluid">
+            <div class="container">
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{ path('index')}}" role="button">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stamgegevens<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('admin_view_medewerker')}}"><b>Medewerkers</b> bij opleiding / faculteit</a></li>
+                            <li><a href="{{ path('view_beroepsprofiel')}}"><b>Beroepsprofielen</b> in curriculum</a></li>
+                            <li><a href="{{ path('view_domein')}}"><b>Domeinen / lijnen</b> in curriculum</a></li>
+                            <li><a href="{{ path('view_eindterm')}}"><b>Eindtermen</b> in curriculum</a></li>
+                            <li><a href="{{ path('view_bron')}}"><b>Bronnen</b> beheren</a></li>
+                            <li><a href="{{ path('view_bronherkomst')}}"><b>Bronnen</b>: Bodies of Knowledge</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Leerdoelen en toetsen<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('view_leerdoel')}}"><b>Leerdoelen</b> in het curriculum</a></li>
+                            <li><a href="{{ path('view_toets')}}"><b>Toetsen</b> in het curriculum</a></li>
+                            {% if is_granted('ROLE_CUCO') or is_granted('ROLE_ONTWIKKELAAR') %}
+                            <li><a href="{{ path('organize_leerdoel_toets')}}"><b>Leerdoelen indelen</b> bij toetsen</a></li>
+                            <li><a href="{{ path('organize_leerdoel_eindterm')}}"><b>Leerdoelen indelen</b> bij eindtermen</a></li>
+                            {% endif %}
+                            <li><a href="{{ path('view_context')}}"><b>Context van leerdoelen</b> (El Paso / HBO-I)</a></li>
+                            <li><a href="{{ path('view_toetssoort')}}"><b>Soorten toetsen</b> (MC, assessment etc.)</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Curriculum bewerken<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('view_course')}}">Courses / periodes met leerdoelen en toetsen (en lesstof)</a></li>
+                            <li><a href="{{ path('view_literatuur')}}">Literatuurlijst curriculum</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Overzichten<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('view_domein_toetsen')}}"><b>Domeinen, toetsen en leeruitkomsten</b></a></li>
+                            <li><a href="{{ path('info_verbeteracties')}}"><b>Geplande verbeteracties en uren / inzet</b></a></li>
+                            <li class="menu-item"><a href="{{ path('info_medewerker_toets_overzicht')}}"><b>Modulewijzer, toetsoverzicht en matrijs</b> per docent</a></li>
+                            <li class="menu-item"><a href="{{ path('info_course_toets_overzicht')}}"><b>Modulewijzer, toetsoverzicht en matrijs</b> per course</a></li>
+                            <li><a href="{{ path('info_eindtermen')}}"><b>Leerdoelen</b> als eindtermen (naar complexiteit)</a></li>
+                            <li><a href="{{ path('index')}}"><b>Statistieken</b></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="container body-content">
+                {% block body %}
+        		{% endblock %}
+            </div>
+        </div>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

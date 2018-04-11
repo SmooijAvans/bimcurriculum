@@ -1,0 +1,42 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+
+    access_control:
+        - { path: '^/view/*', roles: [ROLE_DOCENT, ROLE_CUCO, ROLE_ONTWIKKELAAR, ROLE_VIEWER] }
+        - { path: '^/info/*', roles: [ROLE_DOCENT, ROLE_CUCO, ROLE_ONTWIKKELAAR, ROLE_VIEWER] }
+        - { path: '^/new/*', roles: [ROLE_DOCENT, ROLE_CUCO, ROLE_ONTWIKKELAAR] }
+        - { path: '^/edit/*', roles: [ROLE_DOCENT, ROLE_CUCO, ROLE_ONTWIKKELAAR] }
+        - { path: '^/delete/*', roles: [ROLE_DOCENT, ROLE_CUCO, ROLE_ONTWIKKELAAR] }
+        - { path: '^/rest/*', roles: [ROLE_DOCENT, ROLE_CUCO, ROLE_ONTWIKKELAAR] }
+        - { path: '^/admin/view/*', roles: [ROLE_DOCENT, ROLE_CUCO, ROLE_ONTWIKKELAAR] }
+        - { path: '^/admin/new/*', roles: [ROLE_CUCO] }
+        - { path: '^/admin/delete/*', roles: [ROLE_CUCO] }
+        - { path: '^/admin/edit/leerdoel/*', roles: [ROLE_ONTWIKKELAAR, ROLE_CUCO] }
+        - { path: '^/admin/edit/*', roles: [ROLE_CUCO] }
+        - { path: '^/organize/*', roles: [ROLE_ONTWIKKELAAR, ROLE_CUCO] }
+        
+    encoders:
+        #Symfony\Component\Security\Core\User\User: plaintext
+        AppBundle\Entity\Medewerker:
+            algorithm: bcrypt
+    providers:
+        mwprovider:
+            entity:
+                class: AppBundle:Medewerker
+                property: username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/
+            http_basic: ~
+            provider: mwprovider
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html

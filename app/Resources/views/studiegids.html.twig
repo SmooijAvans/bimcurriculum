@@ -1,0 +1,28 @@
+<a href="javascript:history.back()">Terug</a>
+{% for course in courses %}
+    <ul>
+        <li>
+        <div><strong>{{ course.naam }} (Jaar {{ course.jaar }} periode {{ course.periode }})</strong></div>
+        <div>Coordinator: {{course.eigenaar}}</div><br/>
+        <div>{{course.beschrijving}}</div><br/>
+        <div>
+          <strong>Toetsen</strong>:
+          <ul>
+          {% for toets in course.toetsen %}
+          <li>
+            <div>{{toets.naam}} ({{toets.ec}} studiepunt(en))</div>
+            <div>
+              {% if toets.toetsstof is not empty %}
+              <strong>Literatuur</strong>:
+              {% for toetsstof in toets.toetsstof %}
+                <div>{{toetsstof}}</div>
+              {% endfor %}
+              {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        </div>
+      </li>
+    </ul>
+{% endfor %}

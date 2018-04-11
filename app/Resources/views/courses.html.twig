@@ -1,0 +1,21 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+	<div class="bs-callout bs-callout-info">Hier staan de periodes ofwel kwartalen / semesters / leereenheden / cursussen. De eenheden hebben leerdoelen, die weer vertaald worden naar leeruitkomsten en toetsen.</div>
+{% if is_granted('ROLE_CUCO') %}
+<div><a class="btn btn-success" href="{{path('admin_new_course')}}">Nieuwe course</a></div>
+{% endif %}
+{% for course in courses  %}
+<div class="pushup">
+	<span>{{ course.naam }}</span>
+	{% if is_granted('ROLE_CUCO') %}
+	<span><a class="btn btn-warning" href="{{path('admin_edit_course', {'id': course.id})}}">Aanpassen</a></span>
+	{% endif %}
+	<span><a class="btn btn-primary" href="{{path('view_course_leerdoelen', {'courseid': course.id})}}">Leerdoelen en toetsen</a></span>
+	{% if is_granted('ROLE_CUCO') %}
+	<span><a class="btn btn-danger" href="{{path('admin_delete_conform_course', {'id': course.id})}}">Verwijderen</a></span>
+	{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

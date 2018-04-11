@@ -1,0 +1,11 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+{% if title is defined %}
+<h1>{{title}}</h1>
+{% endif %}
+<form method="post" action="">
+    {{ form_widget(form) }}
+    <input class="btn btn-default" type="submit">
+    <a href="javascript:history.back()">Annuleren</a>
+</form>
+{% endblock %}

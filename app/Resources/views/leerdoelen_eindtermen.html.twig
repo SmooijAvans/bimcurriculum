@@ -1,0 +1,43 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<h1>Leerdoelen en hun eindtermen</h1>
+<div class="bs-callout">
+Plaats hier de leerdoelen bij de juiste einterm
+</div>
+<div class="col-lg-12">
+<button class="btn btn-success" id="leerdoel_eindterm_save_knop">Opslaan</button>
+</div>
+<div class="col-lg-6">
+	<div class="accordion">
+		{% for eindterm in eindtermen %}
+			<span title="{{eindterm.beschrijving}}" class="h3">{{eindterm.beschrijving[:70]}}</span>
+			<ul class="sortable sortable-list sortcanvas" data-eindterm-id="{{eindterm.id}}">
+				{% for doel in eindterm.leerdoelen %}
+				<li class="sort-item"><span title="{{doel.beschrijving}} ({{doel.bron.naam|default("Geen bron")}})" class="h6" data-leerdoel-origineel-id="{{doel.id}}">{{doel.shortmarkup}}</span></li>
+				{% endfor %}
+			</ul>
+		{% endfor %}
+
+	</div>
+</div>
+<div class="col-lg-6">
+	<div class="accordion">
+{% for bron in bronnen  %}
+	<span class="h3">{{bron.naam}}</span>
+	<ul class="sortable sortable-list">
+			{% for leerdoel in bron.leerdoelen %}
+			<li class="sort-item">
+				{%
+					set color = 'black'
+				%}
+				{% if leerdoel.toets is empty %}
+					{% set color = 'grey' %}
+				{% endif %}
+				<span title="{{leerdoel.beschrijving}} ({{leerdoel.bron.naam|default("Geen bron")}})" class="h6 {{ color }}" data-leerdoel-id="{{leerdoel.id}}">{{leerdoel.shortmarkup}}</span>
+			</li>
+			{% endfor %}
+	</ul>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

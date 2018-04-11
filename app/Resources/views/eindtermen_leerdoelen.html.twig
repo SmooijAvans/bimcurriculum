@@ -1,0 +1,15 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+<div class="bs-callout bs-callout-info">Alle leerdoelen gesorteerd op complexiteit.</div>
+<ul>
+{% for leerdoel in leerdoelen  %}
+	<li>
+		{% if leerdoel.context is not empty %}<b>({{leerdoel.context.niveau * leerdoel.bloomniveau}})</b> {% endif %}
+		{% if leerdoel.toets is not empty and leerdoel.toets.course is not empty %} <strong>Jaar {{leerdoel.toets.course.jaar}}, periode {{leerdoel.toets.course.periode}}:</strong>{% endif %}
+		{{leerdoel.beschrijving}}
+		</li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}

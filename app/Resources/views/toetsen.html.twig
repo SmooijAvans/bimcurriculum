@@ -1,0 +1,34 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div class="bs-callout bs-callout-info">Hier beheert u de toetsen die in uw curriculum voorkomen.</div>
+<div>
+{% if is_granted('ROLE_CUCO') %}
+<a class="btn btn-success" href="{{path('admin_new_toets')}}">Nieuwe toets</a>
+{% endif %}
+</div>
+
+	{% if courses is not empty %}
+		<br /><div><form action=""><strong>Filter toetsen op course: </strong><select onchange="this.options[this.selectedIndex].value && (window.location = '{{path('view_toets')}}/' + this.options[this.selectedIndex].value);"><option></option>
+				{% for course in courses %}
+					<option value="{{ course.id }}">{{ course.naam }}</option>
+				{% endfor %}
+			</select></form></div>
+	{% endif %}
+	{% if toetsen is not empty and app.request.get('courseid') is not empty %}
+	<h1>{{ toetsen|first.course.naam }}</h1>
+	{% endif %}
+{% for toets in toetsen  %}
+<div class="pushup">
+	<span>{{ toets.code }}: </span>
+	<span>{{ toets.naam }}</span>
+	{% if is_granted('ROLE_ONTWIKKELAAR') or is_granted('ROLE_CUCO') %}<span><a href="{{path('admin_edit_toets', {'id': toets.id})}}">aanpassen</a></span>{% endif %}
+	{% if is_granted('ROLE_CUCO') %}<a class="red" href="{{path("admin_new_toets_versie", {'tid': toets.id})}}">nieuwe versie van toets</a>
+		{% if toets.archieftoetsen|length > 0 %}
+			<a href="{{path("view_archieftoets_toets", {'tid': toets.id})}}"><span class="red">{{ toets.archieftoetsen|length }} oude versie(s)</a></span>
+		{% endif %}
+	{% endif %}
+	{% if is_granted('ROLE_CUCO') %}<span><a href="{{path('admin_delete_confirm_toets', {'id': toets.id})}}">verwijderen</a></span>{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

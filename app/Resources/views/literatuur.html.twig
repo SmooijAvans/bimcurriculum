@@ -1,0 +1,19 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+	<div class="bs-callout bs-callout-info">Hier staat alle literatuur in het curriculum. Pas op voor dubbelingen als je een nieuw literatuurstuk toevoegt.</div>
+<div><a class="btn btn-success" href="{{path('new_literatuur')}}">Nieuwe literatuur toevoegen</a></div>
+{% for stuk in literatuur  %}
+<div class="pushup">
+	{% if stuk.auteur is not empty %}<span>{{ stuk.auteur }}. </span>{% endif %}
+	{% if stuk.titel is not empty %}<span><strong>{{ stuk.titel }}. </strong></span>{% endif %}
+	{% if stuk.identificatie is not empty %}<span>{{ stuk.identificatie }}. </span>{% endif %}
+	{% if stuk.uitgever is not empty %}<span>{{ stuk.uitgever }}. </span>{% endif %}
+	{% if stuk.jaartal is not empty %}<span>{{ stuk.jaartal }}. </span>{% endif %}
+	{% if stuk.druk is not empty %}<span>Druk: {{ stuk.druk }}.</span>{% endif %}
+	<span><a href="{{path('edit_literatuur', {'id': stuk.id})}}">Aanpassen</a></span>
+	<span><a href="{{path('delete_confirm_literatuur', {'id': stuk.id})}}">Verwijderen</a></span>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

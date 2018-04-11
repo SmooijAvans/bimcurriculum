@@ -1,0 +1,19 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div class="bs-callout bs-callout-info">Volgens El Paso en diverse landelijke standaarden dienen leerdoelen van een bepaald niveau / context te zijn. Daarbij spelen vaak mate van zelfstandigheid, de omgeving en mate van verantwoordelijkheid een rol.</div>
+<div>
+{% if is_granted('ROLE_CUCO') %}
+<a class="btn btn-success" href="{{path('admin_new_context')}}">Nieuwe context</a>
+{% endif %}
+</div>
+{% for context in contexten  %}
+<div class="pushup">
+	<span>Niveau {{ context.niveau }}: {{ context.beschrijving }}</span>
+	{% if is_granted('ROLE_CUCO') %}
+	<span><a href="{{path('admin_edit_context', {'ctid':context.id})}}">aanpassen</a></span>
+	<span><a href="{{path('admin_delete_confirm_context', {'ctid':context.id})}}">verwijderen</a></span>
+	{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

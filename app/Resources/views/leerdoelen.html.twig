@@ -1,0 +1,65 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div class="bs-callout bs-callout-info">Beheer hier de leerdoelen in uw curriculum.</div>
+<div><a class="btn btn-success" href="{{path('admin_new_leerdoel')}}">Nieuw leerdoel</a></div>
+	{% if bronnen is not empty %}
+		<br /><div>
+		<form action="{{ path("view_leerdoel") }}" method="POST">
+		<div class="row">
+			<div class="col-lg-6">
+			<strong>Filter leerdoelen op bron: </strong>
+			<select class="form-control" name="bronid" onchange="submit()"><option></option>
+				{% for bron in bronnen %}
+					<option value="{{ bron.id }}">{{ bron.naam }}</option>
+				{% endfor %}
+			</select>
+			</div>
+			<div class="col-lg-6">
+				<strong>Of zoek op beschrijving:</strong>
+				<input class="form-control" type="search" name="zoekarg" />
+			</div>
+			<div class="col-lg-6">
+				<strong>Of zoek op omissie:</strong>
+				<select class="form-control" name="omissies" onchange="submit()">
+					<option></option>
+					<option value="bloom">Geen bloom niveau</option>
+					<option value="context">Geen context</option>
+					<option value="toets">Niet gekoppeld aan een toets</option>
+				</select>
+			</div>
+			<div class="col-lg-6">
+				<strong>Filter op course:</strong>
+				<select class="form-control" name="course" onchange="submit()">
+					<option></option>
+					<option value="geencourse">Niet aan course gekoppeld</option>
+					{% for course in courses %}
+						<option value="{{ course.id }}">{{ course.naam }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		</form>
+		</div>
+	{% endif %}
+	<div class="row">
+	<div class="col-lg-12">
+		<h1>{{ title }}</h1>
+		
+		{% for leerdoel in leerdoelen %}
+			
+				<div class="pushup">
+					{% if leerdoel.beschrijving|length > 90 %}<span class="help" title="{{leerdoel.beschrijving}}">{{ leerdoel.beschrijving[:90] }}...{% else %}<span>{{ leerdoel.beschrijving}}{% endif %}</span>
+					<span class="green"> ({{leerdoel.toets|default('niet getoetst') }})</span>
+					{% if is_granted('ROLE_CUCO') or is_granted('ROLE_ONTWIKKELAAR') %}
+					<span><a href="{{path('admin_edit_leerdoel', {'id':leerdoel.id})}}">aanpassen</a></span>
+					{% endif %}
+					{% if is_granted('ROLE_CUCO') %}
+					<span><a href="{{path('admin_delete_confirm_leerdoel', {'id':leerdoel.id})}}">verwijderen</a></span>
+					{% endif %}
+				</div>
+			
+		{% endfor %}
+		
+	</div>
+	</div>
+{% endblock %}

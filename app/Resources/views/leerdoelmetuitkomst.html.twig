@@ -1,0 +1,22 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+<div><h1>Leerdoel "{{ leerdoel.beschrijving }}" ({{leerdoel.code}}) met {% trans %}leeruitkomsten{% endtrans %}</h1></div>
+	<div class="bs-callout bs-callout-info">Een {% trans %}leeruitkomst{% endtrans %} moet <strong>waarneembaar gedrag zijn</strong> bij een student:
+	<ul>
+		<li>Kan de basisregels van classificeren benoemen.</li>
+		<li>Kijkt het publiek aan tijdens presenteren.</li>
+		<li>Prioriteert functionaliteit in een MoSCoW lijst.</li>
+	</ul>
+	</div>
+<a class="btn btn-success" href="{{path('new_leeruitkomst_leerdoel', {'leerdoelid':leerdoel.id})}}">{% trans %}Nieuwe leeruitkomst{% endtrans %} toevoegen aan leerdoel</a>
+{% for leeruitkomst in leerdoel.leeruitkomsten  %}
+<div class="pushup">
+	<span>{{leeruitkomst.beschrijving}}</span>
+	<span><a class="btn btn-warning" href="{{path('edit_leeruitkomst', {'id':leeruitkomst.id})}}">Aanpassen</a></span>
+	<span><a class="btn btn-warning" href="{{path('delete_confirm_leeruitkomst_leerdoel', {'id':leeruitkomst.id})}}">Verwijderen</a></span>
+</div>
+{% endfor %}
+	<div class="pushup"><a class="btn btn-primary" href="{{path('view_course_leerdoelen', {'courseid':leerdoel.toets.course.id})}}">Terug naar course</a></div>
+</div>
+{% endblock %}

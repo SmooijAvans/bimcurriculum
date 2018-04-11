@@ -1,0 +1,20 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div xmlns="http://www.w3.org/1999/html">
+	<h2>Gelijkwaardige leerdoelen voor "{{ leerdoel.beschrijving }}"</h2>
+	{% if leerdoelen is empty %}
+		<div class="well">Geen gelijkwaardige leerdoelen gevonden.</div>
+	{% endif %}
+	<ul>
+{% for leerdoel in leerdoelen  %}
+	<li>
+		<div class="pushup">
+	<span>{{ leerdoel.beschrijving }}</span>
+	<span>(in {{ leerdoel.course }})</span>
+</div>
+	</li>
+{% endfor %}
+		</ul>
+	<a class="btn btn-default" href="javascript:history.back()">Terug</a>
+</div>
+{% endblock %}

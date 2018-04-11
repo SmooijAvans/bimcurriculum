@@ -1,0 +1,20 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+	<div class="bs-callout bs-callout-info">Eindtermen zijn de constructen van beroepsprofielen. Leerdoelen dragen bij aan deze eindtermen.</div>
+<div
+{% if is_granted('ROLE_CUCO') %}
+<a class="btn btn-success" href="{{path('admin_new_eindterm')}}">Nieuwe eindterm</a>
+{% endif %}
+</div>
+{% for term in eindtermen  %}
+<div class="pushup">
+	<span>{{ term.beschrijving }}</span>
+	{% if is_granted('ROLE_CUCO') %}
+	<span><a href="{{path('admin_edit_eindterm', {'id': term.id})}}">aanpassen</a></span>
+	<span><a href="{{path('admin_delete_confirm_eindterm', {'id': term.id})}}">verwijderen</a></span>
+	{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

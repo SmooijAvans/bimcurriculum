@@ -1,0 +1,10 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<form method="post" action="{{ path("admin_new_toets_versie", {'tid': oldid}) }}">
+    <label class="control-label required">Reden voor mutatie</label>
+    <input type="text" name="reden" class="form-control" />
+    {{ form_widget(form) }}
+    <input class="btn btn-default" type="submit">
+    <a href="javascript:history.back()">Annuleren</a>
+</form>
+{% endblock %}

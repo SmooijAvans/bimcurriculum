@@ -1,0 +1,58 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+<div><h1 class="h3">Course {{course.naam}} met leerdoelen</h1></div>
+<div><h3 class="h6">Coordinator: {{course.eigenaar}}</h3></div>
+<div>{{course.beschrijving}}</div>
+	<div class="bs-callout bs-callout-info">Toetsen hebben leerdoelen. Deze zijn vastgesteld. U kunt in dit overzicht de subdoelen en toetsstof bewerken.</div>
+	<div><h1 class="h3">Toetsen in deze course:</h1></div>
+	{% for toets in course.toetsen  %}
+		{% if toets is not empty %}
+			<div class="pushup">
+				<span class="blue" id="{{toets.id}}"><h4>{{toets.naam}} ({{toets.code}})
+					<a href="{{path("view_toets_toetsmatrijs", {"toetsid":toets.id})}}"> (download toetsmatrijs)</a>
+					<a href="{{path("view_toets_modulewijzer", {"toetsid":toets.id})}}"> (download modulewijzer)</a>
+				</h4></span>
+				<span><a class="btn btn-primary" href="{{path('view_toetsstof', {'id':toets.id})}}">Toetsstof bewerken</a></span>
+				<span><a class="btn btn-primary" href="{{path('new_verbeteractie', {'tid':toets.id})}}">Verbeteractie voorstellen</a></span>
+				<ul class="pushup">
+				{% for leerdoel in toets.leerdoelen  %}
+						<li>
+							<a href="{{ path("edit_leerdoel_toetspercentage", {"ldid":leerdoel.id}) }}">
+							{% if leerdoel.toetspercentage is not empty and leerdoel.toetspercentage > 0 %}
+								<span class="green">({{leerdoel.toetspercentage}})% </span>
+							{% else %}
+								<span class="red">(geen percentage) </span>
+							{% endif %}
+							</a>
+						{{ leerdoel.beschrijving }}
+							{% if leerdoel.bron is not empty %}
+							({{ leerdoel.bron.naam }})
+							{% endif %}
+							{% if is_granted('ROLE_CUCO') or is_granted('ROLE_ONTWIKKELAAR') %}
+								<a href="{{path("admin_edit_leerdoel_return_course", {"id":leerdoel.id, "courseid":leerdoel.toets.course.id})}}}">aanpassen</a>
+							{% endif %}
+							{% if leerdoel.leeruitkomsten is not empty %}
+								<span class="green"><a href="{{ path("view_leerdoel_leeruitkomsten", {"ldid": leerdoel.id}) }}">({{ leerdoel.leeruitkomsten|length }} subleerdoelen)</a></span>
+							{% else %}
+								<span class="red"><a href="{{ path("view_leerdoel_leeruitkomsten", {"ldid": leerdoel.id}) }}">(geen subleerdoelen)</a></span>
+							{% endif %}
+						</li>
+				{% endfor %}
+					<div class="blue">
+						{% set totaal = toets.totalepercentage %}
+						Totale percentage van leerdoelen:
+						{% if totaal != 100 %}
+							<span class="red">
+						{% else %}
+							<span class="green">
+						{% endif %}
+						{{totaal}}%</span>
+					</div>
+				</ul>
+			</div>
+		{% endif %}
+	{% endfor %}
+</div>
+<br /><br /><br />
+{% endblock %}

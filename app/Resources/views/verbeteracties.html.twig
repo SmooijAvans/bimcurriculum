@@ -1,0 +1,33 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+	<div class="bs-callout bs-callout-info">In dit overzicht zijn alle verbeteracties te zien die zijn uitgezet op toetsen/modules.</div>
+	<div>
+	{%
+		set toetsnaam = ""
+	%}
+	{% for actie in acties %}
+		{%
+			if actie.toets.naam != toetsnaam
+		%}
+		{% set toetsnaam = actie.toets.naam %}
+			<div><h3>{{ toetsnaam }}</h3></div>
+			<div class="row">
+				<div class="col-lg-3"><strong>Actie</strong></div>
+				<div class="col-lg-3"><strong>Toelichting</strong></div>
+				<div class="col-lg-1"><strong>Uren</strong></div>
+				<div class="col-lg-2"><strong>Status</strong></div>
+				<div class="col-lg-3"><strong>Gepland/uitgevoerd voor</strong></div>
+			</div>
+		{%
+			endif
+		%}
+		<div class="row">
+			<div class="col-lg-3">{{ actie.actie }}</div>
+			<div class="col-lg-3">{{ actie.beschrijving }}</div>
+			<div class="col-lg-1">{{ actie.uren }}</div>
+			<div class="col-lg-2">{{ actie.status }}</div>
+			<div class="col-lg-3">{{ actie.medewerker.volledigeNaam }}</div>
+		</div>
+	{% endfor %}
+	</div>
+{% endblock %}

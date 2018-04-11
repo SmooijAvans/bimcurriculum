@@ -1,0 +1,19 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div class="bs-callout bs-callout-info">Hier kunt u de verschillende soorten toetsen die u hanteert definieren.</div>
+<div>
+{% if is_granted('ROLE_CUCO') %}
+<a class="btn btn-success" href="{{path('admin_new_toetssoort')}}">Nieuwe toetssoort</a>
+{% endif %}
+</div>
+{% for toetssoort in toetssoorten %}
+<div class="pushup">
+	<span>{{ toetssoort.naam }}</span>
+	{% if is_granted('ROLE_CUCO') %}
+	<span><a href="{{path('admin_edit_toetssoort', {'id': toetssoort.id})}}">aanpassen</a></span>
+	<span><a href="{{path('admin_delete_confirm_toetssoort', {'id': toetssoort.id})}}">verwijderen</a></span>
+	{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

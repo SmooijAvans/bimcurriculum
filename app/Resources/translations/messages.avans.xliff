@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>btn.nieuwe_medewerker</source>
+                <target>Nieuwe Avans docent</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>btn.leeruitkomst_bewerken</source>
+                <target>Subleerdoel(en) bewerken</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>warning.geen_leeruitkomsten</source>
+                <target>Geen subdoelen gedefinieerd</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>leeruitkomst</source>
+                <target>subleerdoel</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Nieuwe leeruitkomst</source>
+                <target>Nieuw subleerdoel</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>leeruitkomsten</source>
+                <target>subdoelen</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>warning.aantal_leeruitkomsten</source>
+                <target>subdoelen</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

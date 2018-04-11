@@ -1,0 +1,13 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+<div><a class="btn btn-success" href="{{path('leeruitkomst_nieuw')}}">Nieuwe leeruitkomst</a></div>
+{% for leeruitkomst in leeruitkomsten  %}
+<div class="pushup">
+	<span>{{ leeruitkomst.beschrijving }}</span>
+	<span><a class="" href="{{path('leeruitkomst_edit', {'id':leeruitkomst.id})}}">aanpassen</a></span>
+	<span><a class="" href="{{path('leeruitkomst_delete', {'id':leeruitkomst.id})}}">verwijderen</a></span>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+	<div class="bs-callout bs-callout-info">Hier staan de bronnen zoals IS Course 2010.1 en PV Jaar 1. De herkomst (het originele document) is te beheren bij bronherkomsten.</div>
+<div>
+{% if is_granted('ROLE_CUCO') %}
+<a class="btn btn-success" href="{{path('admin_new_bron')}}">Nieuwe bron</a>
+{% endif %}
+</div>
+{% for bron in bronnen  %}
+<div class="pushup">
+	<span>{{ bron.naam }}</span>
+	{% if is_granted('ROLE_CUCO') %}
+	<span><a href="{{path('admin_edit_bron', {'id': bron.id})}}">aanpassen</a></span>
+	<span><a href="{{path('admin_delete_confirm_bron', {'id': bron.id})}}">verwijderen</a></span>
+	{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+<div>
+	<div class="bs-callout bs-callout-info">Kies een course om de leerdoelen in deze course te beheren.</div>
+	<div class="info"></div>
+		<h2>Selecteer een course</h2>
+		<div class="col-lg-12">
+			{% for course in courses %}
+			<div> <a href="{{path('admin_course', {'id':course.id})}}">{{course.naam}}</a></div>
+			{% endfor %}
+		</div>
+</div>
+{% endblock %}

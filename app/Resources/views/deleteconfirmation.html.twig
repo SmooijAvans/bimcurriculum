@@ -1,0 +1,6 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+    <div class="bs-callout bs-callout-info">Weet u zeker dat u het onderstaande item <strong>definitief</strong> wil verwijderen?</div>
+<div class="well">{{entity}}</div>
+<div><span><a class="btn btn-default" href="{{path(confirmpath, {'id': entity.id})}}">Ja</a></span><span><a class="btn btn-default" href="javascript:history.back()">Nee</a></span></div>
+{% endblock %}
